@@ -1,0 +1,24 @@
+dataset:
+    clean_dir: data/shufadict_clean
+    raw_dir: data/shufadict
+    lookup_path: data/lookup_shufadict.json
+    common_char_path: data/common.txt
+model:
+    image_size: [224, 224]
+    data_augmentation:
+        rotation: 0.05
+train:
+    dataset:
+        validation_split: 0.2
+        test_split: 0.2
+        seed: 0
+    num_class: 100
+    batch_size: 16
+    epochs: 10
+    optimizer:
+        lr: 0.0001
+    weights_path: 'cursive-100.h5'
+evaluate:
+    num_class: 100
+    weights_path: 'cursive-100.h5'
+    batch_size: 16

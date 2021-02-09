@@ -10,10 +10,10 @@ A chinese calligraphy character can be written in different forms, so it require
 
 Eg. Sample data of the character "总"
 
-<img src="https://github.com/kahxuan/chinese-calligraphy-ocr/blob/main/images/Screenshot%202021-02-08%20at%2011.48.58%20PM.png" width="400">
+<img src="https://github.com/kahxuan/chinese-calligraphy-ocr/blob/main/images/sample_data.png" width="400">
 
 ## Limitations
 Currently, the model is trained to recognise -
 - 100 most common chinese characters
-- One specific style, which is the semi-cursive script
+- One style, which is the semi-cursive script
 
