@@ -11,15 +11,34 @@ INPUT_SHAPE = tuple([None] + IMG_SHAPE)
 
 class CRModel(tf.keras.Model):
 
-    def __init__(self, num_class):
+    def __init__(self, num_class, net='vgg'):
         super(CRModel, self).__init__()
         self.num_class = num_class
         
         self.data_augmentation = tf.keras.Sequential([
             tf.keras.layers.experimental.preprocessing.RandomRotation(config['data_augmentation']['rotation']),
         ])
-        self.preprocess_input = tf.keras.applications.vgg19.preprocess_input
-        self.base_model = tf.keras.applications.VGG19(
+        
+        if net == 'vgg':
+            self.preprocess_input = tf.keras.applications.vgg19.preprocess_input
+            base_model_f = tf.keras.applications.VGG19
+
+        elif net == 'resnet50':
+            self.preprocess_input = tf.keras.applications.resnet50.preprocess_input
+            base_model_f = tf.keras.applications.ResNet50
+
+        elif net == 'inception_v3':
+            self.preprocess_input = tf.keras.applications.inception_v3.preprocess_input
+            base_model_f = tf.keras.applications.InceptionV3
+
+        elif net == 'efficientnet':
+            self.preprocess_input = tf.keras.applications.efficientnet.preprocess_input
+            base_model_f = tf.keras.applications.EfficientNetB0
+
+        else:
+            raise Exception('Invalid net')
+
+        self.base_model = base_model_f(
             include_top=False,
             weights="imagenet",
             classes=self.num_class,
@@ -40,10 +59,10 @@ class CRModel(tf.keras.Model):
         return x
 
 
-def load_cr_model(num_class, weights_path, optimizer=None):
+def load_cr_model(num_class, weights_path, net, optimizer=None):
     if not optimizer:
-        optimizer = tf.keras.optimizers.Adam(lr=0.0001)
-    model = CRModel(num_class=100)
+        optimizer = tf.keras.optimizers.Adam(learning_rate=0.0001)
+    model = CRModel(num_class=100, net=net)
     model.build(input_shape=INPUT_SHAPE)
     model.compile(optimizer=optimizer,
                   loss=tf.keras.losses.CategoricalCrossentropy(from_logits=True),
