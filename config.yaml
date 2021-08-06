@@ -1,24 +1,18 @@
 dataset:
     clean_dir: data/shufadict_clean
     raw_dir: data/shufadict
-    lookup_path: data/lookup_shufadict.json
     common_char_path: data/common.txt
+    train: data/train
+    validation: data/validation
+    test: data/test
+    num_class: 100
 model:
-    image_size: [224, 224]
-    data_augmentation:
+    image_size: [224, 224],
+    batch_size: 16
+    augmentation:
         rotation: 0.05
+    hidden_dense: 512
 train:
-    dataset:
-        validation_split: 0.2
-        test_split: 0.2
-        seed: 0
-    num_class: 100
-    batch_size: 16
-    epochs: 10
     optimizer:
+        name: adam
         lr: 0.0001
-    weights_path: 'cursive-100.h5'
-evaluate:
-    num_class: 100
-    weights_path: 'cursive-100.h5'
-    batch_size: 16
