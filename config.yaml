@@ -1,13 +1,11 @@
 dataset:
-    clean_dir: data/shufadict_clean
-    raw_dir: data/shufadict
     common_char_path: data/common.txt
-    train: data/train
-    validation: data/validation
-    test: data/test
+    train: data/cccr/train
+    validation: data/cccr/validation
+    test: data/cccr/test
     num_class: 100
 model:
-    image_size: [224, 224],
+    image_size: [224, 224]
     batch_size: 16
     augmentation:
         rotation: 0.05
