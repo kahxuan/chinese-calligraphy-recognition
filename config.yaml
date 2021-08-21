@@ -1,5 +1,4 @@
 dataset:
-    common_char_path: data/common.txt
     train: data/cccr/train
     validation: data/cccr/validation
     test: data/cccr/test
